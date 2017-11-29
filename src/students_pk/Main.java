@@ -1,22 +1,24 @@
 package students_pk;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class Main extends Application {
 
     private Stage primaryStage;
-    private BorderPane rootLayout;
+    private TabPane rootLayout;
 
 
     @Override
@@ -26,15 +28,15 @@ public class Main extends Application {
 
         initRootLayout();
         showContent();
-        //showTab();
+        searchModules();
     }
 
     public void initRootLayout() {
         try {
             // Загружаем корневой макет из fxml файла.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("views/mainWindow.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            loader.setLocation(Main.class.getResource("views/templates/mainWindow.fxml"));
+            rootLayout = loader.load();
 
             // Отображаем сцену, содержащую корневой макет.
             Scene scene = new Scene(rootLayout);
@@ -47,64 +49,43 @@ public class Main extends Application {
 
     public void showContent() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("views/content.fxml"));
-            TabPane personOverview = loader.load();
+            FXMLLoader studentsLoader = new FXMLLoader();
+            studentsLoader.setLocation(Main.class.getResource("views/templates/students.fxml"));
 
-            Tab tab =  new Tab("Студенты");
+            FXMLLoader facultyLoader = new FXMLLoader();
+            facultyLoader.setLocation(Main.class.getResource("views/templates/faculty.fxml"));
 
-            Node contentOnTab;
-            contentOnTab = FXMLLoader.load(Main.class.getResource("views/contentOnTab.fxml"));
+            Tab faculty = facultyLoader.load();
 
-            tab.setContent(contentOnTab);
+            Tab students = studentsLoader.load();
+            Tab data = rootLayout.getTabs().get(0);
 
-            //rootLayout.getChildren().add(tab);
+            TabPane dataTabs = new TabPane();
 
-            personOverview.getTabs().add(tab);
+            dataTabs.getTabs().addAll(students, faculty);
 
-            rootLayout.setCenter(personOverview);
-
-
+            data.setContent(dataTabs);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void showTab() {
-        try {
-            Parent contentOnTab;
-            contentOnTab = FXMLLoader.load(Main.class.getResource("views/contentOnTab.fxml"));
+    public void searchModules() {
+        List <String> searchedFiles;
+        File file = new File("");
 
-            rootLayout.getChildren().add(contentOnTab);
-            System.out.print(rootLayout.getChildren());
-            //this.primaryStage.getScene().setRoot(contentOnTab);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //System.out.print();
     }
 
+    public void loader() {
 
-
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
-
-/*     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
-    } */
-
 
 /* ССылкота
 

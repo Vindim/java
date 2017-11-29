@@ -22,10 +22,13 @@ public class DB {
     private String query;
 
     public DB(String sql) {
+
         Properties prop = new Properties();
         FileInputStream fileInputStream;
 
         try {
+            Class.forName("com.mysql.jdbc.Driver");
+
             fileInputStream = new FileInputStream(PathToProperties);
             prop.load(fileInputStream);
 
@@ -40,6 +43,9 @@ public class DB {
         catch (IOException e) {
             System.out.println("Ошибка: файл " + PathToProperties + " не найден");
             e.printStackTrace();
+        }
+        catch (ClassNotFoundException enf) {
+            enf.printStackTrace();
         }
         this.query = sql;
     }

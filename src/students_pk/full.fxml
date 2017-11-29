@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <tabs>
+        <Tab closable="false" text="Данные">
+            <content>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab closable="false" text="Студенты">
+                            <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <ToolBar layoutY="-6.0" prefHeight="50.0" prefWidth="771.0">
+                                            <items>
+                                                <Button mnemonicParsing="false" text="Добавить" />
+                                                <Button mnemonicParsing="false" text="Редактировать" />
+                                                <Button mnemonicParsing="false" text="Удалить" />
+                                                <ChoiceBox nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" />
+                                                <TextField />
+                                            </items>
+                                        </ToolBar>
+                                        <TableView layoutY="44.0" prefHeight="528.0" prefWidth="771.0">
+                                            <columns>
+                                                <TableColumn prefWidth="75.0" text="Фамилия" />
+                                                <TableColumn prefWidth="75.0" text="Имя" />
+                                                <TableColumn prefWidth="75.0" text="Отчество" />
+                                                <TableColumn prefWidth="75.0" text="Факультет" />
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab closable="false" text="Факультеты">
+                            <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <ToolBar layoutY="-6.0" prefHeight="50.0" prefWidth="771.0">
+                                            <items>
+                                                <Button mnemonicParsing="false" text="Добавить" />
+                                                <Button mnemonicParsing="false" text="Редактировать" />
+                                                <Button mnemonicParsing="false" text="Удалить" />
+                                                <TextField />
+                                            </items>
+                                        </ToolBar>
+                                        <TableView layoutY="44.0" prefHeight="528.0" prefWidth="771.0">
+                                            <columns>
+                                                <TableColumn prefWidth="75.0" text="Название" />
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </content>
+        </Tab>
+        <Tab closable="false" text="Отчеты" />
+    </tabs>
+</TabPane>

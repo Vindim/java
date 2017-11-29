@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Tab fx:controller="students_pk.views.modules.FacultyController" closable="false" text="Факультеты" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <ToolBar layoutY="-6.0" prefHeight="50.0" prefWidth="771.0">
+                    <items>
+                        <Button mnemonicParsing="false" text="Добавить" />
+                        <Button mnemonicParsing="false" text="Редактировать" />
+                        <Button mnemonicParsing="false" text="Удалить" />
+                        <TextField />
+                    </items>
+                </ToolBar>
+                <TableView layoutY="44.0" prefHeight="528.0" prefWidth="771.0">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="Название" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </AnchorPane>
+    </content>
+</Tab>

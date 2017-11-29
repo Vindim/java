@@ -12,5 +12,7 @@
     <orderEntry type="library" name="com.jslsolucoes:ojdbc6:11.2.0.1.0" level="project" />
     <orderEntry type="library" name="mysql:mysql-connector-java:8.0.8-dmr" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0.8-dmr" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1" level="application" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.44-bin" level="project" />
   </component>
 </module>

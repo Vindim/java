@@ -1,4 +1,4 @@
-package students_pk.controllers;
+package students_pk.old;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
