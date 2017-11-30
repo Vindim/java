@@ -1,4 +1,4 @@
-package students_pk.models;
+package students_pk.modules.data.model;
 
 import students_pk.lib.DB;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package students_pk.models;
+package students_pk.modules.data.model;
 
 public class Student {
     private String lastName;

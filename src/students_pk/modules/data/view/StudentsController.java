@@ -1,4 +1,4 @@
-package students_pk.old;
+package students_pk.modules.data.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,13 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import students_pk.models.StudentList;
-import students_pk.models.Student;
+import students_pk.modules.data.model.StudentList;
+import students_pk.modules.data.model.Student;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
 
-public class StudentController {
+public class StudentsController {
 
     private ObservableList<Student> studentsData = FXCollections.observableArrayList();
 

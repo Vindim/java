@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import students_pk.modules.ModulesManager;
+
 public class Main extends Application {
 
     private Stage primaryStage;
@@ -27,15 +29,14 @@ public class Main extends Application {
         this.primaryStage.setTitle("test many controllers");
 
         initRootLayout();
-        showContent();
-        searchModules();
+        new ModulesManager(rootLayout).run();
     }
 
-    public void initRootLayout() {
+    private void initRootLayout() {
         try {
             // Загружаем корневой макет из fxml файла.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("views/templates/mainWindow.fxml"));
+            loader.setLocation(Main.class.getResource("modules/main/template/mainWindow.fxml"));
             rootLayout = loader.load();
 
             // Отображаем сцену, содержащую корневой макет.
@@ -46,23 +47,25 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+}
+    /*
 
     public void showContent() {
         try {
             FXMLLoader studentsLoader = new FXMLLoader();
-            studentsLoader.setLocation(Main.class.getResource("views/templates/students.fxml"));
+            studentsLoader.setLocation(Main.class.getResource("views/templates/data.fxml"));
 
             FXMLLoader facultyLoader = new FXMLLoader();
             facultyLoader.setLocation(Main.class.getResource("views/templates/faculty.fxml"));
 
             Tab faculty = facultyLoader.load();
 
-            Tab students = studentsLoader.load();
+            Tab data = studentsLoader.load();
             Tab data = rootLayout.getTabs().get(0);
 
             TabPane dataTabs = new TabPane();
 
-            dataTabs.getTabs().addAll(students, faculty);
+            dataTabs.getTabs().addAll(data, faculty);
 
             data.setContent(dataTabs);
 

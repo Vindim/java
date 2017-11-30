@@ -8,7 +8,5 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="students_pk.controllers.MainWindowController">
     <tabs>
-        <Tab closable="false" text="Данные" />
-        <Tab closable="false" text="Отчеты" />
     </tabs>
 </TabPane>
