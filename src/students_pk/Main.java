@@ -19,14 +19,14 @@ import students_pk.modules.ModulesManager;
 
 public class Main extends Application {
 
-    private Stage primaryStage;
+    public static Stage primaryStage;
     private TabPane rootLayout;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("test many controllers");
+        Main.primaryStage = primaryStage;
+        Main.primaryStage.setTitle("test many controllers");
 
         initRootLayout();
         new ModulesManager(rootLayout).run();
@@ -47,7 +47,8 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-}
+
+
     /*
 
     public void showContent() {
@@ -83,14 +84,17 @@ public class Main extends Application {
 
     public void loader() {
 
-    }
+    }*/
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }
 
 /* ССылкота
+
+http://o7planning.org/ru/11087/javafx-choicebox-tutorial
 
 http://code.i-harness.com/ru/q/11c1c02
 http://www.java2s.com/Code/Java/JavaFX/AddTabtoTabPane.htm

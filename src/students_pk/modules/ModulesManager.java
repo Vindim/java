@@ -12,10 +12,12 @@ import java.io.IOException;
 
 public class ModulesManager {
 
+    //public Stage primaryStage;
     private TabPane rootLayout;
 
     public ModulesManager(TabPane rootLayout) {
         this.rootLayout = rootLayout;
+        //this.primaryStage = primaryStage;
     }
 
     public void run() {

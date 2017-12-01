@@ -6,15 +6,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+import students_pk.Main;
+import students_pk.modules.data.classes.Faculty;
+import students_pk.modules.data.model.FacultyList;
 import students_pk.modules.data.model.StudentList;
-import students_pk.modules.data.model.Student;
+import students_pk.modules.data.classes.Student;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class StudentsController {
 
     private ObservableList<Student> studentsData = FXCollections.observableArrayList();
+    private ObservableList<Faculty> facultyData = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Student> studentsTable;
@@ -35,8 +41,22 @@ public class StudentsController {
     private Button addButton;
 
     @FXML
-    public void onClickMethod() {
-        addButton.setText("YOOOOO");
+    private Button saveButton;
+
+    @FXML
+    public void showModal() throws IOException {
+        initFaculty();
+        //Field fields = Main.class.getDeclaredField("primaryStage");
+        Stage primaryStage = Main.primaryStage;
+        System.out.print(facultyData);
+
+        ModalWindow modal = new ModalWindow(facultyData);
+        modal.showWindow(primaryStage);
+    }
+
+    @FXML
+    public void saveStudentData() {
+        System.out.print("LOOOOL");
     }
 
     public void initialize() {
@@ -45,6 +65,8 @@ public class StudentsController {
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         middleNameColumn.setCellValueFactory(new PropertyValueFactory<>("middleName"));
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
+
+        System.out.print(studentsData);
 
         studentsTable.setItems(studentsData);
 
@@ -63,6 +85,18 @@ public class StudentsController {
             String faculty = row[4];
 
             studentsData.add(new Student(lastName, firstName, middleName, faculty));
+        }
+    }
+
+    private void initFaculty() {
+        ArrayList<String[]> facultyArray = FacultyList.getList();
+
+        for (int i = 0; i< facultyArray.size(); i++) {
+            String row[] = facultyArray.get(i);
+            String faculty = row[1];
+
+            System.out.printf("%s \n", faculty);
+            facultyData.add(new Faculty(faculty));
         }
     }
 }

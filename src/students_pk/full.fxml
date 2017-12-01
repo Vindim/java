@@ -18,7 +18,7 @@
                                     <children>
                                         <ToolBar layoutY="-6.0" prefHeight="50.0" prefWidth="771.0">
                                             <items>
-                                                <Button mnemonicParsing="false" text="Добавить" />
+                                                <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#showModal" text="Добавить" />
                                                 <Button mnemonicParsing="false" text="Редактировать" />
                                                 <Button mnemonicParsing="false" text="Удалить" />
                                                 <ChoiceBox nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" />

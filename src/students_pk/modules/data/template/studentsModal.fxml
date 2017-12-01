@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:controller="students_pk.modules.data.view.StudentsController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="35.0" layoutY="55.0" promptText="Фамилия" />
+      <TextField layoutX="35.0" layoutY="102.0" promptText="Имя" />
+      <TextField layoutX="35.0" layoutY="150.0" promptText="Отчество" />
+      <ComboBox layoutX="34.0" layoutY="200.0" prefWidth="150.0" promptText="Факультет" />
+      <Button layoutX="360.0" layoutY="320.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="112.0" text="Сохранить" fx:id="saveButton" onMouseClicked="#saveStudentData" />
+   </children>
+</Pane>
