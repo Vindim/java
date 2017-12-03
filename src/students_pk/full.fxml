@@ -25,7 +25,7 @@
                                                 <TextField />
                                             </items>
                                         </ToolBar>
-                                        <TableView layoutY="44.0" prefHeight="528.0" prefWidth="771.0">
+                                        <TableView layoutY="44.0" onKeyPressed="#dsdssd" prefHeight="528.0" prefWidth="771.0">
                                             <columns>
                                                 <TableColumn prefWidth="75.0" text="Фамилия" />
                                                 <TableColumn prefWidth="75.0" text="Имя" />

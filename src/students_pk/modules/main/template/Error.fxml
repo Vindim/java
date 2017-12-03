@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="students_pk.modules.main.controller.ErrorWindowController">
+   <children>
+      <Button layoutX="292.0" layoutY="91.0" mnemonicParsing="false" onMouseClicked="#errorClose" prefHeight="25.0" prefWidth="62.0" text="OK" />
+      <Label layoutX="39.0" layoutY="24.0" prefHeight="44.0" prefWidth="300.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+   </children>
+</Pane>

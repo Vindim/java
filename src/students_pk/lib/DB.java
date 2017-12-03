@@ -27,8 +27,6 @@ public class DB {
         FileInputStream fileInputStream;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-
             fileInputStream = new FileInputStream(PathToProperties);
             prop.load(fileInputStream);
 
@@ -43,9 +41,6 @@ public class DB {
         catch (IOException e) {
             System.out.println("Ошибка: файл " + PathToProperties + " не найден");
             e.printStackTrace();
-        }
-        catch (ClassNotFoundException enf) {
-            enf.printStackTrace();
         }
         this.query = sql;
     }
@@ -62,32 +57,47 @@ public class DB {
     }
 
 
-    public ArrayList<String[]> execSelect() {
-        ArrayList<String[]> result = new ArrayList<>();
+    public ArrayList<Object[]> execSelect() {
+        ArrayList<Object[]> result = new ArrayList<>();
 
-        String fieldString = this.query.replaceFirst("SELECT", "");
-        int end = fieldString.lastIndexOf("FROM");
-        fieldString = fieldString.substring(0, end);
-        String[] fields = fieldString.split(", ");
-        //System.out.print(fields.length);
-
-        //String[] fields = this.query.split(", ");
         try {
             stmt = this.connect();
             rs = stmt.executeQuery(this.query);
+
+            int length = rs.getMetaData().getColumnCount();
+
             while (rs.next()) {
-                String row[] = new String[fields.length];
-                for (int i = 0; i < fields.length; i++) {
-                    row[i] = rs.getString(i+1);
+                Object row[] = new Object[length];
+
+                for (int i = 0; i < length; i++) {
+                    String type = rs.getMetaData().getColumnTypeName(i + 1);
+                    switch (type) {
+                        case "INT":
+                            row[i] = rs.getInt(i +1);
+                            break;
+                        case "VARCHAR":
+                            row[i] = rs.getString(i + 1);
+                            break;
+                    }
                 }
                 result.add(row);
-
             }
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
         this.close();
         return result;
+    }
+
+    public void execInsertOrUpdate() {
+        try {
+            stmt = this.connect();
+            stmt.executeUpdate(this.query);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this.close();
     }
 
     private void close() {

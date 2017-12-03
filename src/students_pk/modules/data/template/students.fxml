@@ -12,11 +12,13 @@
             <children>
                 <ToolBar layoutY="-6.0" prefHeight="50.0" prefWidth="771.0">
                     <items>
-                        <Button fx:id="addButton" mnemonicParsing="false" text="Добавить" onMouseClicked="#showModal"/>
-                        <Button mnemonicParsing="false" text="Редактировать" />
-                        <Button mnemonicParsing="false" text="Удалить" />
-                        <ChoiceBox nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" />
-                        <TextField />
+                        <Button fx:id="addButton" mnemonicParsing="false" text="Добавить" onMouseClicked="#addClicked"/>
+                        <Button fx:id="editButton" mnemonicParsing="false" text="Редактировать" onMouseClicked="#editClicked"/>
+                        <Button fx:id="deleteButton" mnemonicParsing="false" text="Удалить" onMouseClicked="#deleteClicked" />
+                        <ComboBox promptText="Факультет" prefWidth="150.0" fx:id="facultySelector" />
+                        <Button mnemonicParsing="false" text="x" onMouseClicked="#clearSelectedFaculty" />
+                        <TextField fx:id="searchField"/>
+                        <Button mnemonicParsing="false" text="x" onMouseClicked="#clearSearch" />
                     </items>
                 </ToolBar>
                 <TableView layoutY="44.0" prefHeight="528.0" prefWidth="771.0" fx:id="studentsTable">

@@ -1,11 +1,10 @@
 package students_pk.modules.data.view;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import students_pk.Main;
 import students_pk.modules.data.classes.Faculty;
@@ -16,11 +15,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StudentsController {
 
-    private ObservableList<Student> studentsData = FXCollections.observableArrayList();
-    private ObservableList<Faculty> facultyData = FXCollections.observableArrayList();
+    private ObservableList<Student> studentsData;
+    private ObservableList<Faculty> facultyData;
+    private static Map<String, Integer> facultyMap;
+    private int selectedFaculty = 0;
+    private boolean isInit = false;
 
     @FXML
     private TableView<Student> studentsTable;
@@ -41,62 +45,143 @@ public class StudentsController {
     private Button addButton;
 
     @FXML
-    private Button saveButton;
+    private Button editButton;
 
     @FXML
-    public void showModal() throws IOException {
-        initFaculty();
-        //Field fields = Main.class.getDeclaredField("primaryStage");
-        Stage primaryStage = Main.primaryStage;
-        System.out.print(facultyData);
+    private Button deleteButton;
 
-        ModalWindow modal = new ModalWindow(facultyData);
-        modal.showWindow(primaryStage);
+    @FXML
+    private ComboBox facultySelector;
+
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private void clearSearch() {
+
     }
 
     @FXML
-    public void saveStudentData() {
-        System.out.print("LOOOOL");
+    public void addClicked() throws IOException {
+        initFaculty();
+        Student fake = new Student(0, "", "", "", "", 0);
+        ModalWindow modal = new ModalWindow(facultyData, fake);
+        boolean saveClicked = modal.showAddWindow(Main.primaryStage);
+        if (saveClicked){
+            initialize();
+        }
+    }
+
+    @FXML
+    public void editClicked() throws IOException {
+        initFaculty();
+        Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
+        ModalWindow modal = new ModalWindow(facultyData, selectedStudent);
+        boolean saveClicked = modal.showEditWindow(Main.primaryStage);
+        if (saveClicked){
+            initialize();
+        }
+    }
+
+    @FXML
+    public void deleteClicked() {
+        Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(Main.primaryStage);
+        alert.setTitle("Предупреждение");
+        alert.setHeaderText("Удаление студента");
+        alert.setContentText("Вы уверены, что хотите удалить данного студента?");
+        alert.showAndWait();
+        if (!alert.getResult().getButtonData().isCancelButton()) {
+            selectedStudent.delete();
+            initialize();
+        }
+    }
+
+    @FXML
+    private void clearSelectedFaculty() {
+        facultySelector.getSelectionModel().clearSelection();
+        this.selectedFaculty = 0;
+        initialize();
+    }
+
+    @FXML
+    public void onSearch() {
+
     }
 
     public void initialize() {
+        initFaculty();
+
+        facultySelector.setItems(facultyData);
+        if (!isInit) {
+            facultySelector.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)-> {
+                System.out.printf(" NEW %s \n",newSelection);
+                System.out.printf(" OLD %s \n",oldSelection);
+                if (newSelection != null && !newSelection.equals("Факультет")) {
+                    this.selectedFaculty = getIdByFacultyName(newSelection.toString());
+                }
+                initData();
+                studentsTable.setItems(studentsData);
+            });
+        }
+        facultySelector.getSelectionModel().select(0);
         initData();
+        studentsTable.getSelectionModel().clearSelection();
+        editButton.setDisable(true);
+        deleteButton.setDisable(true);
+        if (!isInit) {
+            studentsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)-> {
+                if (newSelection != null) {
+                    editButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
+            });
+        }
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         middleNameColumn.setCellValueFactory(new PropertyValueFactory<>("middleName"));
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
-
-        System.out.print(studentsData);
-
         studentsTable.setItems(studentsData);
-
+        isInit = true;
     }
 
     private void initData() {
-        ArrayList<String[]> studentArray = StudentList.getTable();
-        //studentsData
+        ArrayList<Object[]> studentArray = StudentList.getTable(this.selectedFaculty);
+        studentsData = FXCollections.observableArrayList();
 
         for (int i = 0; i < studentArray.size(); i++) {
-            String row[] = studentArray.get(i);
-            //String id = row[0];
-            String lastName = row[1];
-            String firstName = row[2];
-            String middleName = row[3];
-            String faculty = row[4];
+            Object row[] = studentArray.get(i);
 
-            studentsData.add(new Student(lastName, firstName, middleName, faculty));
+            int id = (int) row[0];
+            String lastName = (String) row[1];
+            String firstName = (String) row[2];
+            String middleName = (String ) row[3];
+            String faculty = (String) row[4];
+            int facultyId = (int) row [5];
+
+            studentsData.add(new Student(id, lastName, firstName, middleName, faculty, facultyId));
         }
     }
 
     private void initFaculty() {
-        ArrayList<String[]> facultyArray = FacultyList.getList();
+        ArrayList<Object[]> facultyArray = null;
+        facultyArray = FacultyList.getList();
+        facultyData = FXCollections.observableArrayList();
+        facultyMap = new HashMap<>();
+        facultyData.add(new Faculty("Факультет"));
+        facultyMap.put("Факультет", 0);
 
         for (int i = 0; i< facultyArray.size(); i++) {
-            String row[] = facultyArray.get(i);
-            String faculty = row[1];
-
-            System.out.printf("%s \n", faculty);
+            Object row[] = facultyArray.get(i);
+            String faculty = (String) row[1];
+            int id = (int) row[0];
+            facultyMap.put(faculty, id);
             facultyData.add(new Faculty(faculty));
         }
+    }
+
+    public static int getIdByFacultyName(String name) {
+        return facultyMap.get(name);
     }
 }

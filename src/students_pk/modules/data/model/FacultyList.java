@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class FacultyList {
 
-    public static ArrayList<String[]> getList() {
+    public static ArrayList<Object[]> getList() {
         String sql = "SELECT ID, NAME FROM faculty";
 
         return new DB(sql).execSelect();

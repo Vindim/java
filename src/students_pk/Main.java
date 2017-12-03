@@ -1,19 +1,12 @@
 package students_pk;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import students_pk.modules.ModulesManager;
 
@@ -24,9 +17,9 @@ public class Main extends Application {
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage){
         Main.primaryStage = primaryStage;
-        Main.primaryStage.setTitle("test many controllers");
+        Main.primaryStage.setTitle("ПК приёмной комиссии");
 
         initRootLayout();
         new ModulesManager(rootLayout).run();
@@ -93,6 +86,8 @@ public class Main extends Application {
 }
 
 /* ССылкота
+
+https://stackoverflow.com/questions/44317837/create-search-textfield-field-to-search-in-a-javafx-tableview
 
 http://o7planning.org/ru/11087/javafx-choicebox-tutorial
 
