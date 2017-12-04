@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import students_pk.Main;
+import students_pk.modules.data.view.StudentsController;
 
 import java.io.IOException;
 
@@ -22,14 +23,18 @@ public class DataModuleController {
         try {
             FXMLLoader studentsLoader = new FXMLLoader();
             studentsLoader.setLocation(Main.class.getResource("modules/data/template/students.fxml"));
+            StudentsController studentController = studentsLoader.getController();
+
 
             FXMLLoader facultyLoader = new FXMLLoader();
             facultyLoader.setLocation(Main.class.getResource("modules/data/template/faculty.fxml"));
 
             Tab faculty = facultyLoader.load();
-            Tab data = studentsLoader.load();
+            Tab students = studentsLoader.load();
 
-            dataWindow.getTabs().addAll(data, faculty);
+
+
+            dataWindow.getTabs().addAll(students, faculty);
             tab.setContent(dataWindow);
         }
         catch (IOException e) {

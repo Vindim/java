@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -14,16 +13,15 @@ import students_pk.Main;
 import students_pk.modules.data.classes.Faculty;
 import students_pk.modules.data.classes.Student;
 
-import javax.lang.model.type.NullType;
 import java.io.IOException;
 
-public class ModalWindow {
+public class StudentsModalWindow {
 
     private ObservableList<Faculty> faculty;
     public static Stage stg;
     private Student student;
 
-    public ModalWindow(ObservableList<Faculty> faculty, Student student) {
+    public StudentsModalWindow(ObservableList<Faculty> faculty, Student student) {
         this.faculty = faculty;
         this.student = student;
     }
@@ -41,7 +39,7 @@ public class ModalWindow {
 
         Scene scene = new Scene(root);
 
-        ModalWindowController controller = modalLoader.getController();
+        StudentModalController controller = modalLoader.getController();
         controller.setStudentId(0);
 
         stg.setScene(scene);
@@ -73,7 +71,7 @@ public class ModalWindow {
 
         Scene scene = new Scene(root);
 
-        ModalWindowController controller = modalLoader.getController();
+        StudentModalController controller = modalLoader.getController();
         controller.setStudentId(this.student.getId());
 
         stg.setScene(scene);

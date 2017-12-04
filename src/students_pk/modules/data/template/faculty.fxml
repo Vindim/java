@@ -12,15 +12,15 @@
             <children>
                 <ToolBar layoutY="-6.0" prefHeight="50.0" prefWidth="771.0">
                     <items>
-                        <Button mnemonicParsing="false" text="Добавить" />
-                        <Button mnemonicParsing="false" text="Редактировать" />
-                        <Button mnemonicParsing="false" text="Удалить" />
+                        <Button mnemonicParsing="false" text="Добавить" onMouseClicked="#addClicked"/>
+                        <Button mnemonicParsing="false" text="Редактировать" fx:id="editButton" onMouseClicked="#editClicked" />
+                        <Button mnemonicParsing="false" text="Удалить" fx:id="deleteButton" onMouseClicked="#deleteClicked"/>
                         <TextField />
                     </items>
                 </ToolBar>
-                <TableView layoutY="44.0" prefHeight="528.0" prefWidth="771.0">
+                <TableView fx:id="facultyTable" layoutY="44.0" prefHeight="528.0" prefWidth="771.0">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="Название" />
+                        <TableColumn prefWidth="75.0" text="Название" fx:id="facultyName" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

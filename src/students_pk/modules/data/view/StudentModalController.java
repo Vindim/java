@@ -5,13 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import students_pk.Main;
 import students_pk.modules.data.classes.Student;
 import students_pk.modules.main.controller.ErrorModal;
 
 import java.io.IOException;
 
-public class ModalWindowController {
+public class StudentModalController {
 
     private boolean isSaveClicked = false;
     private int studentId;
@@ -36,7 +35,7 @@ public class ModalWindowController {
         Object faculty =  facultySelector.getValue();
 
         if (lastName.equals("") || firstName.equals("") || faculty == null) {
-            Stage stg = ModalWindow.stg;
+            Stage stg = StudentsModalWindow.stg;
             ErrorModal modal = new ErrorModal("Не заполнены данные студента");
             modal.showWindow(stg);
         }
@@ -49,7 +48,7 @@ public class ModalWindowController {
                 new Student(this.studentId, lastName, firstName, middleName, faculty.toString(), facultyId).update();
             }
             isSaveClicked = true;
-            ModalWindow.stg.close();
+            StudentsModalWindow.stg.close();
         }
     }
 

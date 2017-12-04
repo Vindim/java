@@ -60,7 +60,6 @@ public class Student {
                 "MIDDLE_NAME = '" + this.middleName + "', " +
                 "FACULTY_ID = " + this.facultyId +
                 " WHERE ID = " + this.id;
-        System.out.print(sql);
         new DB(sql).execInsertOrUpdate();
     }
 
