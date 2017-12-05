@@ -41,44 +41,6 @@ public class Main extends Application {
         }
     }
 
-
-    /*
-
-    public void showContent() {
-        try {
-            FXMLLoader studentsLoader = new FXMLLoader();
-            studentsLoader.setLocation(Main.class.getResource("views/templates/data.fxml"));
-
-            FXMLLoader facultyLoader = new FXMLLoader();
-            facultyLoader.setLocation(Main.class.getResource("views/templates/faculty.fxml"));
-
-            Tab faculty = facultyLoader.load();
-
-            Tab data = studentsLoader.load();
-            Tab data = rootLayout.getTabs().get(0);
-
-            TabPane dataTabs = new TabPane();
-
-            dataTabs.getTabs().addAll(data, faculty);
-
-            data.setContent(dataTabs);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void searchModules() {
-        List <String> searchedFiles;
-        File file = new File("");
-
-        //System.out.print();
-    }
-
-    public void loader() {
-
-    }*/
-
     public static void main(String[] args) {
         launch(args);
     }

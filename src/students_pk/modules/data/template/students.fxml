@@ -6,7 +6,7 @@
 <?import javafx.scene.control.* ?>
 <?import javafx.scene.layout.* ?>
 
-<Tab fx:controller="students_pk.modules.data.view.StudentsController" closable="false" text="Студенты" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Tab fx:controller="students_pk.modules.data.view.StudentsController" closable="false" text="Студенты" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" onSelectionChanged="#fullReload">
     <content>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>

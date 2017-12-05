@@ -2,9 +2,12 @@ package students_pk.modules.data.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import students_pk.Main;
+import students_pk.lib.Events;
 import students_pk.modules.data.classes.Faculty;
 import students_pk.modules.data.model.FacultyList;
 import students_pk.modules.data.model.StudentList;
@@ -22,7 +25,10 @@ public class StudentsController {
     private ObservableList<Faculty> facultyData;
     private static Map<String, Integer> facultyMap;
     private int selectedFaculty = 0;
-    private boolean isInit = false;
+
+    private FilteredList<Student> filteredStudentsData;
+    private SortedList<Student> sortedStudentsData;
+
 
     @FXML
     private TableView<Student> studentsTable;
@@ -55,8 +61,14 @@ public class StudentsController {
     private TextField searchField;
 
     @FXML
-    private void clearSearch() {
+    private void fullReload() {
+        reloadFacultyFilter();
+        reloadTable();
+    }
 
+    @FXML
+    private void clearSearch() {
+        searchField.clear();
     }
 
     @FXML
@@ -65,8 +77,8 @@ public class StudentsController {
         Student fake = new Student(0, "", "", "", "", 0);
         StudentsModalWindow modal = new StudentsModalWindow(facultyData, fake);
         boolean saveClicked = modal.showAddWindow(Main.primaryStage);
-        if (saveClicked){
-            initialize();
+        if (saveClicked) {
+            reloadTable();
         }
     }
 
@@ -76,8 +88,8 @@ public class StudentsController {
         Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
         StudentsModalWindow modal = new StudentsModalWindow(facultyData, selectedStudent);
         boolean saveClicked = modal.showEditWindow(Main.primaryStage);
-        if (saveClicked){
-            initialize();
+        if (saveClicked) {
+            reloadTable();
         }
     }
 
@@ -92,7 +104,7 @@ public class StudentsController {
         alert.showAndWait();
         if (!alert.getResult().getButtonData().isCancelButton()) {
             selectedStudent.delete();
-            initialize();
+            reloadTable();
         }
     }
 
@@ -100,46 +112,74 @@ public class StudentsController {
     private void clearSelectedFaculty() {
         facultySelector.getSelectionModel().clearSelection();
         this.selectedFaculty = 0;
-        initialize();
+
+        reloadFacultyFilter();
+        reloadTable();
     }
 
-    @FXML
-    public void onSearch() {
-
-    }
 
     public void initialize() {
-        initFaculty();
 
-        facultySelector.setItems(facultyData);
-        if (!isInit) {
-            facultySelector.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)-> {
-                if (newSelection != null && !newSelection.equals("Факультет")) {
-                    this.selectedFaculty = getIdByFacultyName(newSelection.toString());
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+            filteredStudentsData.setPredicate(Student -> {
+                if (newVal == null || newVal.isEmpty()) {
+                    return true;
                 }
-                initStudentData();
-                studentsTable.setItems(studentsData);
-            });
-        }
-        facultySelector.getSelectionModel().select(0);
-        initStudentData();
-        studentsTable.getSelectionModel().clearSelection();
-        editButton.setDisable(true);
-        deleteButton.setDisable(true);
-        if (!isInit) {
-            studentsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)-> {
-                if (newSelection != null) {
-                    editButton.setDisable(false);
-                    deleteButton.setDisable(false);
+                String lowerCaseFilter = newVal.toLowerCase();
+
+                String lastName = Student.getLastName().toLowerCase();
+                String firstName = Student.getFirstName().toLowerCase();
+                String middleName = Student.getMiddleName().toLowerCase();
+                String faculty = Student.getFaculty().toLowerCase();
+
+                String fullString = lastName + " " + firstName + " " + middleName + " " + faculty;
+
+                if (String.valueOf(lastName).contains(lowerCaseFilter) ||
+                        String.valueOf(firstName).contains(lowerCaseFilter) ||
+                        String.valueOf(middleName).contains(lowerCaseFilter) ||
+                        String.valueOf(faculty).contains(lowerCaseFilter) ||
+                        String.valueOf(fullString).contains(lowerCaseFilter)) {
+                    return true;
                 }
+                return false;
             });
-        }
+        });
+
+        facultySelector.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null && !newSelection.equals("Факультет")) {
+                System.out.print(newSelection);
+                selectedFaculty = getIdByFacultyName(newSelection.toString());
+                System.out.print(selectedFaculty);
+            }
+            reloadTable();
+        });
+
+        Events.setButtonDisable(studentsTable, editButton, deleteButton);
+
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         middleNameColumn.setCellValueFactory(new PropertyValueFactory<>("middleName"));
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
-        studentsTable.setItems(studentsData);
-        isInit = true;
+
+        reloadFacultyFilter();
+        reloadTable();
+    }
+
+    private void reloadTable() {
+        initStudentData();
+        studentsTable.getSelectionModel().clearSelection();
+        editButton.setDisable(true);
+        deleteButton.setDisable(true);
+        filteredStudentsData = new FilteredList<>(studentsData, p -> true);
+        sortedStudentsData = new SortedList<>(filteredStudentsData);
+        sortedStudentsData.comparatorProperty().bind(studentsTable.comparatorProperty());
+        studentsTable.setItems(sortedStudentsData);
+    }
+
+    private void reloadFacultyFilter() {
+        initFaculty();
+        facultySelector.setItems(facultyData);
+        facultySelector.getSelectionModel().select(0);
     }
 
     private void initStudentData() {
@@ -152,10 +192,9 @@ public class StudentsController {
             int id = (int) row[0];
             String lastName = (String) row[1];
             String firstName = (String) row[2];
-            String middleName = (String ) row[3];
+            String middleName = (String) row[3];
             String faculty = (String) row[4];
-            int facultyId = (int) row [5];
-
+            int facultyId = (int) row[5];
             studentsData.add(new Student(id, lastName, firstName, middleName, faculty, facultyId));
         }
     }
@@ -165,10 +204,10 @@ public class StudentsController {
         facultyArray = FacultyList.getList();
         facultyData = FXCollections.observableArrayList();
         facultyMap = new HashMap<>();
-        facultyData.add(new Faculty(0,"Факультет"));
+        facultyData.add(new Faculty(0, "Факультет"));
         facultyMap.put("Факультет", 0);
 
-        for (int i = 0; i< facultyArray.size(); i++) {
+        for (int i = 0; i < facultyArray.size(); i++) {
             Object row[] = facultyArray.get(i);
             String faculty = (String) row[1];
             int id = (int) row[0];
@@ -176,7 +215,6 @@ public class StudentsController {
             facultyData.add(new Faculty(id, faculty));
         }
     }
-
 
 
     public static int getIdByFacultyName(String name) {

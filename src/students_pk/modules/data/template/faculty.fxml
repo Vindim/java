@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Tab fx:controller="students_pk.modules.data.view.FacultyController" closable="false" text="Факультеты" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Tab fx:controller="students_pk.modules.data.view.FacultyController" closable="false" text="Факультеты" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" onSelectionChanged="#fullReload">
     <content>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -15,7 +15,8 @@
                         <Button mnemonicParsing="false" text="Добавить" onMouseClicked="#addClicked"/>
                         <Button mnemonicParsing="false" text="Редактировать" fx:id="editButton" onMouseClicked="#editClicked" />
                         <Button mnemonicParsing="false" text="Удалить" fx:id="deleteButton" onMouseClicked="#deleteClicked"/>
-                        <TextField />
+                        <TextField fx:id="searchField"/>
+                        <Button mnemonicParsing="false" text="x" onMouseClicked="#clearSearch" />
                     </items>
                 </ToolBar>
                 <TableView fx:id="facultyTable" layoutY="44.0" prefHeight="528.0" prefWidth="771.0">
