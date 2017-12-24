@@ -147,9 +147,7 @@ public class StudentsController {
 
         facultySelector.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null && !newSelection.equals("Факультет")) {
-                System.out.print(newSelection);
                 selectedFaculty = getIdByFacultyName(newSelection.toString());
-                System.out.print(selectedFaculty);
             }
             reloadTable();
         });
