@@ -5,14 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import students_pk.modules.data.classes.Discipline;
-import students_pk.modules.data.classes.Room;
 import students_pk.modules.main.controller.ErrorModal;
 
 import java.io.IOException;
 
 public class DisciplineModalController {
-
-
 
     private boolean isSaveClicked;
     private int disciplineId;

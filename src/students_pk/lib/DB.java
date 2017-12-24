@@ -78,6 +78,9 @@ public class DB {
                         case "VARCHAR":
                             row[i] = rs.getString(i + 1);
                             break;
+                        case "DATETIME":
+                            row[i] = rs.getString(i + 1);
+                            break;
                     }
                 }
                 result.add(row);

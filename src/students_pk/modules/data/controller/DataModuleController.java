@@ -32,14 +32,18 @@ public class DataModuleController {
             FXMLLoader disciplineLoader = new FXMLLoader();
             disciplineLoader.setLocation(Main.class.getResource("modules/data/template/discipline.fxml"));
 
+            FXMLLoader examLoader = new FXMLLoader();
+            examLoader.setLocation(Main.class.getResource("modules/data/template/exam.fxml"));
+
             Tab faculty = facultyLoader.load();
             Tab students = studentsLoader.load();
             Tab room = roomLoader.load();
             Tab discipline = disciplineLoader.load();
+            Tab exam = examLoader.load();
 
 
 
-            dataWindow.getTabs().addAll(students, faculty, room, discipline);
+            dataWindow.getTabs().addAll(students, faculty, room, discipline, exam);
             tab.setContent(dataWindow);
         }
         catch (IOException e) {
