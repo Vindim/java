@@ -63,6 +63,4 @@ public class FacultyModalWindow {
         stg.showAndWait();
         return controller.isSaveClicked();
     }
-
-
 }

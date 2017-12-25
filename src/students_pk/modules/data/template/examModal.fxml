@@ -8,9 +8,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="students_pk.modules.data.view.ExamModalController">
     <children>
-      <ComboBox layoutX="34.0" layoutY="55.0" prefWidth="150.0" promptText="Предмет" fx:id="disciplineSelector"/>
-      <ComboBox layoutX="35.0" layoutY="105.0" prefWidth="150.0" promptText="Аудитория" fx:id="roomSelector" />
-      <DatePicker layoutX="35.0" layoutY="150.0" prefHeight="25.0" prefWidth="149.0" promptText="Дата экзамена" fx:id="datePicker"/>
+      <ComboBox fx:id="disciplineSelector" layoutX="34.0" layoutY="55.0" prefWidth="150.0" promptText="Предмет" />
+      <ComboBox fx:id="roomSelector" layoutX="35.0" layoutY="105.0" prefWidth="150.0" promptText="Аудитория" />
+      <DatePicker fx:id="datePicker" layoutX="35.0" layoutY="150.0" prefHeight="25.0" prefWidth="149.0" promptText="Дата экзамена" />
+      <TextField layoutX="36.0" layoutY="188.0" promptText="Время экзамена" fx:id="timeField" />
         <Button fx:id="saveButton" layoutX="360.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#saveExamData" prefHeight="55.0" prefWidth="112.0" text="Сохранить" />
     </children>
 </Pane>

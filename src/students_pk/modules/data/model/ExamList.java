@@ -14,12 +14,10 @@ public class ExamList {
                 "e.ROOM_ID, " +
                 "d.NAME AS DISCIPLINE_NAME, " +
                 "r.NUMBER AS ROOM_NUMBER, " +
-                "e.DATE " +
+                "DATE_FORMAT(e.DATE, '%d.%m.%Y %H:%i') " +
                 "FROM exam e " +
                 "JOIN discipline d ON d.ID = e.DISCIPLINE_ID " +
                 "JOIN room r ON r.ID = e.ROOM_ID";
-
-        System.out.print(new DB(sql).execSelect());
         return new DB(sql).execSelect();
     }
 }

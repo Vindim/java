@@ -10,7 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import students_pk.Main;
 import students_pk.lib.Events;
 import students_pk.modules.data.classes.Faculty;
-import students_pk.modules.data.classes.Student;
 import students_pk.modules.data.model.FacultyList;
 
 import java.io.IOException;

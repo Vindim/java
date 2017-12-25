@@ -79,7 +79,7 @@ public class DB {
                             row[i] = rs.getString(i + 1);
                             break;
                         case "DATETIME":
-                            row[i] = rs.getString(i + 1);
+                            row[i] = rs.getString(i + 1);//.substring(0, 16);
                             break;
                     }
                 }

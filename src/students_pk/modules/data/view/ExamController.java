@@ -158,7 +158,6 @@ public class ExamController {
             String disciplineName = (String) row[3];
             String roomNumber = (String) row[4];
             String date = (String) row[5];
-            System.out.print(row[5]);
             examData.add(new Exam(id, disciplineId, roomId, disciplineName, roomNumber, date));
         }
 

@@ -64,6 +64,30 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
+                  <Tab closable="false" text="Аудитории">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ToolBar layoutY="-6.0" prefHeight="50.0" prefWidth="771.0">
+                                 <items>
+                                    <Button mnemonicParsing="false" text="Добавить" />
+                                    <Button mnemonicParsing="false" text="Редактировать" />
+                                    <Button mnemonicParsing="false" text="Удалить" />
+                                    <TextField />
+                                 </items>
+                              </ToolBar>
+                              <TableView layoutY="44.0" prefHeight="528.0" prefWidth="771.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="Название" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
                     </tabs>
                 </TabPane>
             </content>

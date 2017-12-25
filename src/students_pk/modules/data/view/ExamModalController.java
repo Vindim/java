@@ -4,12 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import students_pk.modules.data.classes.Exam;
-import students_pk.modules.data.classes.Student;
 import students_pk.modules.main.controller.ErrorModal;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class ExamModalController {
     private boolean isSaveClicked;
@@ -27,6 +28,9 @@ public class ExamModalController {
     @FXML
     private DatePicker datePicker;
 
+    @FXML
+    private TextField timeField;
+
     public boolean isSaveClicked() {
         return isSaveClicked;
     }
@@ -39,10 +43,10 @@ public class ExamModalController {
     private void saveExamData() throws IOException {
         Object discipline = disciplineSelector.getValue();
         Object room = roomSelector.getValue();
-        String date = datePicker.getValue().toString();
-        System.out.print(date);
+        LocalDate localDate = datePicker.getValue();
+        String time = timeField.getText();
 
-        if (discipline == null || room == null || date.equals("")) {
+        if (discipline == null || room == null || localDate == null || time.equals("")) {
             Stage stg = ExamModalWindow.stg;
             ErrorModal modal = new ErrorModal("Не заполнены данные экзамена");
             modal.showWindow(stg);
@@ -50,6 +54,7 @@ public class ExamModalController {
         else {
             int disciplineId = ExamController.getIdByDisciplineName(discipline.toString());
             int roomId = ExamController.getIdByRoomNumber(room.toString());
+            String date = localDate.toString() + " " + time;
             if (this.examId == 0) {
                 new Exam(0, disciplineId, roomId, discipline.toString(), room.toString(), date).save();
             }
