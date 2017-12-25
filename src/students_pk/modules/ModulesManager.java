@@ -3,6 +3,7 @@ package students_pk.modules;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import students_pk.modules.data.controller.DataModuleController;
+import students_pk.modules.pass_exam.controller.PassExamModuleController;
 
 public class ModulesManager {
 
@@ -14,6 +15,7 @@ public class ModulesManager {
 
     public void run() {
         Tab dataTab = new DataModuleController().init();
-        rootLayout.getTabs().add(dataTab);
+        Tab passExamTab = new PassExamModuleController().init();
+        rootLayout.getTabs().addAll(dataTab, passExamTab);
     }
 }
