@@ -8,32 +8,35 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import students_pk.Main;
-import students_pk.modules.data.classes.Faculty;
+import students_pk.modules.data.classes.Discipline;
+import students_pk.modules.data.classes.Room;
 
 import java.io.IOException;
 
-public class FacultyModalWindow {
+public class DisciplineModalWindow {
+
+
 
     public static Stage stg;
-    private Faculty faculty;
+    private Discipline discipline;
 
-    public FacultyModalWindow (Faculty faculty) {
-        this.faculty = faculty;
+    public DisciplineModalWindow (Discipline discipline) {
+        this.discipline = discipline;
     }
 
     public boolean showAddWindow(Window modal) throws IOException {
         stg = new Stage();
         FXMLLoader modalLoader = new FXMLLoader();
-        modalLoader.setLocation(Main.class.getResource("modules/data/template/facultyModal.fxml"));
+        modalLoader.setLocation(Main.class.getResource("modules/data/template/disciplineModal.fxml"));
 
         Pane root = modalLoader.load();
         Scene scene = new Scene(root);
 
-        FacultyModalController controller = modalLoader.getController();
-        controller.setFacultyId(0);
+        DisciplineModalController controller = modalLoader.getController();
+        controller.setDisciplineId(0);
 
         stg.setScene(scene);
-        stg.setTitle("Добавление факультета");
+        stg.setTitle("Добавление предмета");
         stg.initModality(Modality.WINDOW_MODAL);
         stg.initOwner(modal);
         stg.showAndWait();
@@ -43,21 +46,21 @@ public class FacultyModalWindow {
     public boolean showEditWindow(Window modal) throws IOException {
         stg = new Stage();
         FXMLLoader modalLoader = new FXMLLoader();
-        modalLoader.setLocation(Main.class.getResource("modules/data/template/facultyModal.fxml"));
+        modalLoader.setLocation(Main.class.getResource("modules/data/template/disciplineModal.fxml"));
 
         Pane root = modalLoader.load();
 
-        TextField facultyNameField = (TextField) root.getChildren().get(0);
+        TextField disciplineNameField = (TextField) root.getChildren().get(0);
 
-        facultyNameField.setText(this.faculty.getName());
+        disciplineNameField.setText(this.discipline.getName());
 
         Scene scene = new Scene(root);
 
-        FacultyModalController controller = modalLoader.getController();
-        controller.setFacultyId(this.faculty.getId());
+        DisciplineModalController controller = modalLoader.getController();
+        controller.setDisciplineId(this.discipline.getId());
 
         stg.setScene(scene);
-        stg.setTitle("test modal");
+        stg.setTitle("Редактирование предмета");
         stg.initModality(Modality.WINDOW_MODAL);
         stg.initOwner(modal);
         stg.showAndWait();

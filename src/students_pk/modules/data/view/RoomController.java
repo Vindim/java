@@ -9,23 +9,24 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import students_pk.Main;
 import students_pk.lib.Events;
-import students_pk.modules.data.classes.Faculty;
-import students_pk.modules.data.model.FacultyList;
+import students_pk.modules.data.classes.Room;
+import students_pk.modules.data.model.RoomList;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FacultyController {
-    private ObservableList<Faculty> facultyData;
+public class RoomController {
 
-    private FilteredList<Faculty> filteredFacultyData;
-    private SortedList<Faculty> sortedFacultyData;
+    private ObservableList<Room> roomData;
 
-    @FXML
-    private TableView<Faculty> facultyTable;
+    private FilteredList<Room> filteredRoomData;
+    private SortedList<Room> sortedRoomData;
 
     @FXML
-    private TableColumn<Faculty, String> facultyName;
+    private TableView<Room> roomTable;
+
+    @FXML
+    private TableColumn<Room, String> roomNumber;
 
     @FXML
     private Button editButton;
@@ -43,9 +44,9 @@ public class FacultyController {
 
     @FXML
     public void addClicked() throws IOException {
-        initFacultyData();
-        Faculty fake = new Faculty(0, "");
-        FacultyModalWindow modal = new FacultyModalWindow(fake);
+        initRoomData();
+        Room fake = new Room(0, "");
+        RoomModalWindow modal = new RoomModalWindow(fake);
         boolean saveClicked = modal.showAddWindow(Main.primaryStage);
         if (saveClicked) {
             reloadTable();
@@ -54,9 +55,9 @@ public class FacultyController {
 
     @FXML
     public void editClicked() throws IOException {
-        initFacultyData();
-        Faculty selectedFaculty = facultyTable.getSelectionModel().getSelectedItem();
-        FacultyModalWindow modal = new FacultyModalWindow(selectedFaculty);
+        initRoomData();
+        Room selectedRoom = roomTable.getSelectionModel().getSelectedItem();
+        RoomModalWindow modal = new RoomModalWindow(selectedRoom);
         boolean saveClicked = modal.showEditWindow(Main.primaryStage);
         if (saveClicked) {
             reloadTable();
@@ -65,20 +66,20 @@ public class FacultyController {
 
     @FXML
     public void deleteClicked() {
-        Faculty selectedFaculty = facultyTable.getSelectionModel().getSelectedItem();
+        Room selectedRoom = roomTable.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initOwner(Main.primaryStage);
         alert.setTitle("Предупреждение");
-        alert.setHeaderText("Удаление факультета");
-        alert.setContentText("Вы уверены, что хотите удалить данный факультет?");
+        alert.setHeaderText("Удаление аудитории");
+        alert.setContentText("Вы уверены, что хотите удалить данную аудиторию?");
         alert.showAndWait();
         if (!alert.getResult().getButtonData().isCancelButton()) {
-            String res = selectedFaculty.delete();
+            String res = selectedRoom.delete();
             if (!res.equals("ok")) {
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.initOwner(Main.primaryStage);
                 error.setTitle("Ошибка");
-                error.setHeaderText("Удаление факультета");
+                error.setHeaderText("Удаление аудитории");
                 error.setContentText(res);
                 error.showAndWait();
             }
@@ -94,46 +95,45 @@ public class FacultyController {
     public void initialize() {
 
         searchField.textProperty().addListener((obs, oldVal, newVal) -> {
-            filteredFacultyData.setPredicate(Faculty -> {
+            filteredRoomData.setPredicate(Room -> {
                 if (newVal == null || newVal.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newVal.toLowerCase();
-                String name = Faculty.getName().toLowerCase();
-                if (String.valueOf(name).contains(lowerCaseFilter)) {
+                String number = Room.getNumber().toLowerCase();
+                if (String.valueOf(number).contains(lowerCaseFilter)) {
                     return true;
                 }
                 return false;
             });
         });
 
-        Events.setButtonDisable(facultyTable, editButton, deleteButton);
-        facultyName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        Events.setButtonDisable(roomTable, editButton, deleteButton);
+        roomNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
         reloadTable();
     }
 
     private void reloadTable() {
-        initFacultyData();
+        initRoomData();
 
-        facultyTable.getSelectionModel().clearSelection();
+        roomTable.getSelectionModel().clearSelection();
         editButton.setDisable(true);
         deleteButton.setDisable(true);
-        filteredFacultyData = new FilteredList<>(facultyData, p -> true);
-        sortedFacultyData = new SortedList<>(filteredFacultyData);
-        sortedFacultyData.comparatorProperty().bind(facultyTable.comparatorProperty());
-        facultyTable.setItems(sortedFacultyData);
+        filteredRoomData = new FilteredList<>(roomData, p -> true);
+        sortedRoomData = new SortedList<>(filteredRoomData);
+        sortedRoomData.comparatorProperty().bind(roomTable.comparatorProperty());
+        roomTable.setItems(sortedRoomData);
     }
 
-    private void initFacultyData() {
-        ArrayList<Object[]> facultyArray = FacultyList.getList();
-        facultyData = FXCollections.observableArrayList();
+    private void initRoomData() {
+        ArrayList<Object[]> roomArray = RoomList.getList();
+        roomData = FXCollections.observableArrayList();
 
-        for (int i = 0; i < facultyArray.size(); i++) {
-            Object row[] = facultyArray.get(i);
+        for (int i = 0; i < roomArray.size(); i++) {
+            Object row[] = roomArray.get(i);
             int id = (int) row[0];
-            String facultyName = (String) row[1];
-            facultyData.add(new Faculty(id, facultyName));
+            String roomNumber = (String) row[1];
+            roomData.add(new Room(id, roomNumber));
         }
     }
-
 }

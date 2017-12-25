@@ -9,23 +9,25 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import students_pk.Main;
 import students_pk.lib.Events;
-import students_pk.modules.data.classes.Faculty;
-import students_pk.modules.data.model.FacultyList;
+import students_pk.modules.data.classes.Discipline;
+import students_pk.modules.data.model.DisciplineList;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FacultyController {
-    private ObservableList<Faculty> facultyData;
+public class DisciplineController {
 
-    private FilteredList<Faculty> filteredFacultyData;
-    private SortedList<Faculty> sortedFacultyData;
+
+    private ObservableList<Discipline> disciplineData;
+
+    private FilteredList<Discipline> filteredDisciplineData;
+    private SortedList<Discipline> sortedDisciplineData;
 
     @FXML
-    private TableView<Faculty> facultyTable;
+    private TableView<Discipline> disciplineTable;
 
     @FXML
-    private TableColumn<Faculty, String> facultyName;
+    private TableColumn<Discipline, String> disciplineName;
 
     @FXML
     private Button editButton;
@@ -43,9 +45,9 @@ public class FacultyController {
 
     @FXML
     public void addClicked() throws IOException {
-        initFacultyData();
-        Faculty fake = new Faculty(0, "");
-        FacultyModalWindow modal = new FacultyModalWindow(fake);
+        initDisciplineData();
+        Discipline fake = new Discipline(0, "");
+        DisciplineModalWindow modal = new DisciplineModalWindow(fake);
         boolean saveClicked = modal.showAddWindow(Main.primaryStage);
         if (saveClicked) {
             reloadTable();
@@ -54,9 +56,9 @@ public class FacultyController {
 
     @FXML
     public void editClicked() throws IOException {
-        initFacultyData();
-        Faculty selectedFaculty = facultyTable.getSelectionModel().getSelectedItem();
-        FacultyModalWindow modal = new FacultyModalWindow(selectedFaculty);
+        initDisciplineData();
+        Discipline selectedDiscipline = disciplineTable.getSelectionModel().getSelectedItem();
+        DisciplineModalWindow modal = new DisciplineModalWindow(selectedDiscipline);
         boolean saveClicked = modal.showEditWindow(Main.primaryStage);
         if (saveClicked) {
             reloadTable();
@@ -65,20 +67,20 @@ public class FacultyController {
 
     @FXML
     public void deleteClicked() {
-        Faculty selectedFaculty = facultyTable.getSelectionModel().getSelectedItem();
+        Discipline selectedDiscipline = disciplineTable.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initOwner(Main.primaryStage);
         alert.setTitle("Предупреждение");
-        alert.setHeaderText("Удаление факультета");
-        alert.setContentText("Вы уверены, что хотите удалить данный факультет?");
+        alert.setHeaderText("Удаление предмета");
+        alert.setContentText("Вы уверены, что хотите удалить данный предмет?");
         alert.showAndWait();
         if (!alert.getResult().getButtonData().isCancelButton()) {
-            String res = selectedFaculty.delete();
+            String res = selectedDiscipline.delete();
             if (!res.equals("ok")) {
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.initOwner(Main.primaryStage);
                 error.setTitle("Ошибка");
-                error.setHeaderText("Удаление факультета");
+                error.setHeaderText("Удаление предмета");
                 error.setContentText(res);
                 error.showAndWait();
             }
@@ -94,12 +96,12 @@ public class FacultyController {
     public void initialize() {
 
         searchField.textProperty().addListener((obs, oldVal, newVal) -> {
-            filteredFacultyData.setPredicate(Faculty -> {
+            filteredDisciplineData.setPredicate(Discipline -> {
                 if (newVal == null || newVal.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newVal.toLowerCase();
-                String name = Faculty.getName().toLowerCase();
+                String name = Discipline.getName().toLowerCase();
                 if (String.valueOf(name).contains(lowerCaseFilter)) {
                     return true;
                 }
@@ -107,33 +109,32 @@ public class FacultyController {
             });
         });
 
-        Events.setButtonDisable(facultyTable, editButton, deleteButton);
-        facultyName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        Events.setButtonDisable(disciplineTable, editButton, deleteButton);
+        disciplineName.setCellValueFactory(new PropertyValueFactory<>("name"));
         reloadTable();
     }
 
     private void reloadTable() {
-        initFacultyData();
+        initDisciplineData();
 
-        facultyTable.getSelectionModel().clearSelection();
+        disciplineTable.getSelectionModel().clearSelection();
         editButton.setDisable(true);
         deleteButton.setDisable(true);
-        filteredFacultyData = new FilteredList<>(facultyData, p -> true);
-        sortedFacultyData = new SortedList<>(filteredFacultyData);
-        sortedFacultyData.comparatorProperty().bind(facultyTable.comparatorProperty());
-        facultyTable.setItems(sortedFacultyData);
+        filteredDisciplineData = new FilteredList<>(disciplineData, p -> true);
+        sortedDisciplineData = new SortedList<>(filteredDisciplineData);
+        sortedDisciplineData.comparatorProperty().bind(disciplineTable.comparatorProperty());
+        disciplineTable.setItems(sortedDisciplineData);
     }
 
-    private void initFacultyData() {
-        ArrayList<Object[]> facultyArray = FacultyList.getList();
-        facultyData = FXCollections.observableArrayList();
+    private void initDisciplineData() {
+        ArrayList<Object[]> disciplineArray = DisciplineList.getList();
+        disciplineData = FXCollections.observableArrayList();
 
-        for (int i = 0; i < facultyArray.size(); i++) {
-            Object row[] = facultyArray.get(i);
+        for (int i = 0; i < disciplineArray.size(); i++) {
+            Object row[] = disciplineArray.get(i);
             int id = (int) row[0];
-            String facultyName = (String) row[1];
-            facultyData.add(new Faculty(id, facultyName));
+            String disciplineName = (String) row[1];
+            disciplineData.add(new Discipline(id, disciplineName));
         }
     }
-
 }
