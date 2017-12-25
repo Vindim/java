@@ -23,7 +23,7 @@ public class ErrorModal {
     public void showWindow(Window modal) throws IOException {
         stg = new Stage();
         FXMLLoader errorLoader = new FXMLLoader();
-        errorLoader.setLocation(Main.class.getResource("modules/main/template/error.fxml"));
+        errorLoader.setLocation(Main.class.getResource("modules/main/template/Error.fxml"));
 
         Pane root = errorLoader.load();
 

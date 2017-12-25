@@ -43,7 +43,7 @@ public class StudentsModalWindow {
         controller.setStudentId(0);
 
         stg.setScene(scene);
-        stg.setTitle("test modal");
+        stg.setTitle("Добавление студента");
         stg.initModality(Modality.WINDOW_MODAL);
         stg.initOwner(modal);
         stg.showAndWait();
@@ -75,7 +75,7 @@ public class StudentsModalWindow {
         controller.setStudentId(this.student.getId());
 
         stg.setScene(scene);
-        stg.setTitle("test modal");
+        stg.setTitle("Редактирование студента");
         stg.initModality(Modality.WINDOW_MODAL);
         stg.initOwner(modal);
         stg.showAndWait();
