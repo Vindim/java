@@ -22,6 +22,7 @@ public class DB {
     private String query;
 
     public DB(String sql) {
+        new Log(sql).writeLog();
 
         Properties prop = new Properties();
         FileInputStream fileInputStream;
