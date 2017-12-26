@@ -168,15 +168,16 @@ public class ExamController {
         disciplineArray = DisciplineList.getList();
         disciplineData = FXCollections.observableArrayList();
         disciplineMap = new HashMap<>();
-        disciplineData.add(new Discipline(0, "Предмет"));
+        disciplineData.add(new Discipline(0, "Предмет", 0));
         disciplineMap.put("Предмет", 0);
 
         for (int i = 0; i < disciplineArray.size(); i++) {
             Object row[] = disciplineArray.get(i);
             String name = (String) row[1];
             int id = (int) row[0];
+            Integer mask = (Integer) row[2];
             disciplineMap.put(name, id);
-            disciplineData.add(new Discipline(id, name));
+            disciplineData.add(new Discipline(id, name, mask));
         }
     }
 

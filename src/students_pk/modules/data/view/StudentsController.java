@@ -202,7 +202,7 @@ public class StudentsController {
         facultyArray = FacultyList.getList();
         facultyData = FXCollections.observableArrayList();
         facultyMap = new HashMap<>();
-        facultyData.add(new Faculty(0, "Факультет"));
+        facultyData.add(new Faculty(0, "Факультет", 0));
         facultyMap.put("Факультет", 0);
 
         for (int i = 0; i < facultyArray.size(); i++) {
@@ -210,7 +210,7 @@ public class StudentsController {
             String faculty = (String) row[1];
             int id = (int) row[0];
             facultyMap.put(faculty, id);
-            facultyData.add(new Faculty(id, faculty));
+            facultyData.add(new Faculty(id, faculty, 0));
         }
     }
 

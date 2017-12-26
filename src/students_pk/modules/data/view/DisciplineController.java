@@ -46,7 +46,7 @@ public class DisciplineController {
     @FXML
     public void addClicked() throws IOException {
         initDisciplineData();
-        Discipline fake = new Discipline(0, "");
+        Discipline fake = new Discipline(0, "", 0);
         DisciplineModalWindow modal = new DisciplineModalWindow(fake);
         boolean saveClicked = modal.showAddWindow(Main.primaryStage);
         if (saveClicked) {
@@ -134,7 +134,8 @@ public class DisciplineController {
             Object row[] = disciplineArray.get(i);
             int id = (int) row[0];
             String disciplineName = (String) row[1];
-            disciplineData.add(new Discipline(id, disciplineName));
+            Integer mask = (Integer) row[2];
+            disciplineData.add(new Discipline(id, disciplineName, mask));
         }
     }
 }

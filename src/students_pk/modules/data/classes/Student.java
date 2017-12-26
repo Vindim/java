@@ -8,7 +8,7 @@ public class Student {
     private String middleName;
     private String faculty;
     private int facultyId;
-    private int id;
+    protected int id;
 
     public Student(Integer id, String lastName, String firstName, String middleName, String faculty, Integer facultyId) {
         this.id = id;

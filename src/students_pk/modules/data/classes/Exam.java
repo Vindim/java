@@ -47,6 +47,10 @@ public class Exam {
         return date;
     }
 
+    public String toString() {
+        return discipline;
+    }
+
     public void save() {
         String sql = "INSERT INTO exam (DISCIPLINE_ID, ROOM_ID, DATE) VALUES ("
                 + this.disciplineId + ", "

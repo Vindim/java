@@ -7,10 +7,12 @@ import java.util.ArrayList;
 public class Discipline {
     private String name;
     private int id;
+    private int mask;
 
-    public Discipline(int id, String name) {
+    public Discipline(int id, String name, int mask) {
         this.id = id;
         this.name = name;
+        this.mask = mask;
     }
 
     public String getName() {
@@ -21,12 +23,23 @@ public class Discipline {
         return id;
     }
 
+    public int getMask() {
+        return mask;
+    }
+
     public String toString() {
         return this.name;
     }
 
     public void save() {
-        String sql = "INSERT INTO discipline (NAME) VALUES ('" + this.name + "')";
+        String selectMaxMask = "SELECT MAX(MASK) AS MASK FROM discipline";
+        ArrayList<Object[]> maxMaskArray = new DB(selectMaxMask).execSelect();
+        Object  row[] = maxMaskArray.get(0);
+        Integer maxMask = (Integer) row[0];
+        Integer newMask;
+        if (maxMask == 0 || maxMask == null) newMask = 1;
+        else newMask = maxMask * 2;
+        String sql = "INSERT INTO discipline (NAME, MASK) VALUES ('" + this.name + "', " + newMask + ")";
         new DB(sql).execInsertOrUpdate();
     }
 

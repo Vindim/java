@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane fx:controller="students_pk.modules.data.view.FacultyModalController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="students_pk.modules.data.view.FacultyModalController">
    <children>
-      <TextField layoutX="52.0" layoutY="51.0" prefHeight="25.0" prefWidth="265.0" promptText="Название" fx:id="facultyNameInput" />
-      <Button layoutX="414.0" layoutY="160.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="135.0" text="Сохранить" fx:id="saveButton" onMouseClicked="#saveFacultyData" />
+      <VBox layoutX="52.0" layoutY="6.0" prefHeight="245.0" prefWidth="265.0" fx:id="boxWithCheckboxes">
+         <children>
+            <TextField fx:id="facultyNameInput" prefHeight="23.0" prefWidth="265.0" promptText="Название">
+               <opaqueInsets>
+                  <Insets top="10.0" />
+               </opaqueInsets>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets top="20.0" />
+         </opaqueInsets>
+      </VBox>
+      <Button fx:id="saveButton" layoutX="414.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#saveFacultyData" prefHeight="54.0" prefWidth="135.0" text="Сохранить" />
    </children>
 </Pane>

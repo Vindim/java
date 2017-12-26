@@ -10,13 +10,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import students_pk.Main;
 import students_pk.lib.Events;
 import students_pk.modules.data.classes.Faculty;
+import students_pk.modules.data.model.DisciplineList;
 import students_pk.modules.data.model.FacultyList;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FacultyController {
     private ObservableList<Faculty> facultyData;
+    private Map<String, Integer> disciplineMap;
+    private String[] disciplines;
 
     private FilteredList<Faculty> filteredFacultyData;
     private SortedList<Faculty> sortedFacultyData;
@@ -44,7 +49,7 @@ public class FacultyController {
     @FXML
     public void addClicked() throws IOException {
         initFacultyData();
-        Faculty fake = new Faculty(0, "");
+        Faculty fake = new Faculty(0, "", 0);
         FacultyModalWindow modal = new FacultyModalWindow(fake);
         boolean saveClicked = modal.showAddWindow(Main.primaryStage);
         if (saveClicked) {
@@ -114,7 +119,7 @@ public class FacultyController {
 
     private void reloadTable() {
         initFacultyData();
-
+        //initDisciplineData();
         facultyTable.getSelectionModel().clearSelection();
         editButton.setDisable(true);
         deleteButton.setDisable(true);
@@ -132,8 +137,8 @@ public class FacultyController {
             Object row[] = facultyArray.get(i);
             int id = (int) row[0];
             String facultyName = (String) row[1];
-            facultyData.add(new Faculty(id, facultyName));
+            int fullMask = (int) row[2];
+            facultyData.add(new Faculty(id, facultyName, fullMask));
         }
     }
-
 }

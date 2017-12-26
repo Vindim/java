@@ -41,10 +41,10 @@ public class DisciplineModalController {
         }
         else {
             if (this.disciplineId == 0) {
-                new Discipline(0, disciplineName).save();
+                new Discipline(0, disciplineName, 0).save();
             }
             else {
-                new Discipline(this.disciplineId, disciplineName).update();
+                new Discipline(this.disciplineId, disciplineName, 0).update();
             }
             isSaveClicked = true;
             DisciplineModalWindow.stg.close();
