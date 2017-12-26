@@ -99,7 +99,15 @@ public class ExamController {
         alert.setContentText("Вы уверены, что хотите удалить данный экзамен?");
         alert.showAndWait();
         if (!alert.getResult().getButtonData().isCancelButton()) {
-            selectedExam.delete();
+            String message = selectedExam.delete();
+            if (!message.equals("ok")) {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.initOwner(Main.primaryStage);
+                error.setTitle("Ошибка");
+                error.setHeaderText("Удаление экзамена");
+                error.setContentText(message);
+                error.showAndWait();
+            }
             reloadTable();
         }
     }

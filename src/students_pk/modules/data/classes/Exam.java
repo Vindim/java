@@ -72,7 +72,7 @@ public class Exam {
         String sqlCheckUsage = "SELECT * FROM exam_result WHERE EXAM_ID = " + this.id;
         ArrayList<Object[]> check = new DB(sqlCheckUsage).execSelect();
         if (check.size() != 0) {
-            return "Экзамен используется и не может быть удалён";
+            return "Некоторые студенты уже сдали этот экзамен, поэтому его удалить нельзя";
         }
 
         String sql = "DELETE FROM exam WHERE ID = " + this.id;
