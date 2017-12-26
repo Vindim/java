@@ -20,15 +20,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StudentsController {
-
     private ObservableList<Student> studentsData;
     private ObservableList<Faculty> facultyData;
     private static Map<String, Integer> facultyMap;
     private int selectedFaculty = 0;
-
     private FilteredList<Student> filteredStudentsData;
     private SortedList<Student> sortedStudentsData;
-
 
     @FXML
     private TableView<Student> studentsTable;
@@ -46,9 +43,6 @@ public class StudentsController {
     private TableColumn<Student, String> facultyColumn;
 
     @FXML
-    private Button addButton;
-
-    @FXML
     private Button editButton;
 
     @FXML
@@ -60,17 +54,20 @@ public class StudentsController {
     @FXML
     private TextField searchField;
 
+    //перезагрузка данных в окне
     @FXML
     private void fullReload() {
         reloadFacultyFilter();
         reloadTable();
     }
 
+    //очистка поиска
     @FXML
     private void clearSearch() {
         searchField.clear();
     }
 
+    //добавление нового студента
     @FXML
     public void addClicked() throws IOException {
         initFaculty();
@@ -82,6 +79,7 @@ public class StudentsController {
         }
     }
 
+    //редактирование студента
     @FXML
     public void editClicked() throws IOException {
         initFaculty();
@@ -93,6 +91,7 @@ public class StudentsController {
         }
     }
 
+    //удаление студента, с выводом алерта
     @FXML
     public void deleteClicked() {
         Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
@@ -108,25 +107,23 @@ public class StudentsController {
         }
     }
 
+    //сброс фильтра по факультетам
     @FXML
     private void clearSelectedFaculty() {
         facultySelector.getSelectionModel().clearSelection();
         this.selectedFaculty = 0;
-
         reloadFacultyFilter();
         reloadTable();
     }
 
-
     public void initialize() {
-
+        //ставим обработчик на поле для поиска
         searchField.textProperty().addListener((obs, oldVal, newVal) -> {
             filteredStudentsData.setPredicate(Student -> {
                 if (newVal == null || newVal.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newVal.toLowerCase();
-
                 String lastName = Student.getLastName().toLowerCase();
                 String firstName = Student.getFirstName().toLowerCase();
                 String middleName = Student.getMiddleName().toLowerCase();
@@ -145,6 +142,7 @@ public class StudentsController {
             });
         });
 
+        //установка обработчика для фильтра по факультетам
         facultySelector.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null && !newSelection.equals("Факультет")) {
                 selectedFaculty = getIdByFacultyName(newSelection.toString());
@@ -152,19 +150,24 @@ public class StudentsController {
             reloadTable();
         });
 
+        //по-умолчанию дизейблим кнопки редактирования и удаления
         Events.setButtonDisable(studentsTable, editButton, deleteButton);
 
+        //связываем столбец таблицы с полем класса
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         middleNameColumn.setCellValueFactory(new PropertyValueFactory<>("middleName"));
         facultyColumn.setCellValueFactory(new PropertyValueFactory<>("faculty"));
 
+        //перезагружаем данные
         reloadFacultyFilter();
         reloadTable();
     }
 
     private void reloadTable() {
+        //получаем данные о студентах
         initStudentData();
+        //сбрасываем выделение
         studentsTable.getSelectionModel().clearSelection();
         editButton.setDisable(true);
         deleteButton.setDisable(true);
@@ -174,19 +177,19 @@ public class StudentsController {
         studentsTable.setItems(sortedStudentsData);
     }
 
+    //перезагрузка фильтра по факультетам
     private void reloadFacultyFilter() {
         initFaculty();
         facultySelector.setItems(facultyData);
         facultySelector.getSelectionModel().select(0);
     }
 
+    //инициализация данных по студенту
     private void initStudentData() {
         ArrayList<Object[]> studentArray = StudentList.getList(this.selectedFaculty);
         studentsData = FXCollections.observableArrayList();
-
         for (int i = 0; i < studentArray.size(); i++) {
             Object row[] = studentArray.get(i);
-
             int id = (int) row[0];
             String lastName = (String) row[1];
             String firstName = (String) row[2];
@@ -197,6 +200,7 @@ public class StudentsController {
         }
     }
 
+    //инициализация данных по факультетам
     private void initFaculty() {
         ArrayList<Object[]> facultyArray = null;
         facultyArray = FacultyList.getList();
@@ -204,7 +208,6 @@ public class StudentsController {
         facultyMap = new HashMap<>();
         facultyData.add(new Faculty(0, "Факультет", 0));
         facultyMap.put("Факультет", 0);
-
         for (int i = 0; i < facultyArray.size(); i++) {
             Object row[] = facultyArray.get(i);
             String faculty = (String) row[1];
@@ -214,7 +217,7 @@ public class StudentsController {
         }
     }
 
-
+    //получение ID факультета по названию
     public static int getIdByFacultyName(String name) {
         return facultyMap.get(name);
     }

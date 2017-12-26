@@ -7,7 +7,6 @@ import students_pk.modules.pass_exam.controller.PassExamModuleController;
 import students_pk.modules.reports.controller.ReportsModuleController;
 
 public class ModulesManager {
-
     private TabPane rootLayout;
 
     public ModulesManager(TabPane rootLayout) {
@@ -15,6 +14,7 @@ public class ModulesManager {
     }
 
     public void run() {
+        //инициализируем все вкладки в боковом меню через их контроллеры модуля
         Tab dataTab = new DataModuleController().init();
         Tab passExamTab = new PassExamModuleController().init();
         Tab reportsTab = new ReportsModuleController().init();

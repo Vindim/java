@@ -20,7 +20,6 @@ public class StudentList {
         if (selectedFaculty != 0) {
             sql = sql + " WHERE f.ID = " + selectedFaculty;
         }
-
         return new DB(sql).execSelect();
     }
 }

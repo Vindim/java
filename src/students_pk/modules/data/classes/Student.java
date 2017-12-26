@@ -39,11 +39,6 @@ public class Student {
         return faculty;
     }
 
-    public int getFacultyId() {
-        return facultyId;
-    }
-
-
     public void save() {
         String sql = "INSERT INTO student (LAST_NAME, FIRST_NAME, MIDDLE_NAME, FACULTY_ID) VALUES ('"
                 + this.lastName + "', '"
@@ -67,6 +62,4 @@ public class Student {
         String sql = "DELETE FROM student WHERE ID = " + this.id;
         new DB(sql).execInsertOrUpdate();
     }
-
-
 }

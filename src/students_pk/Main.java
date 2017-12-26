@@ -11,17 +11,18 @@ import java.io.IOException;
 import students_pk.modules.ModulesManager;
 
 public class Main extends Application {
-
     public static Stage primaryStage;
     private TabPane rootLayout;
 
-
     @Override
     public void start(Stage primaryStage){
+        //Создаем главный слой и устанавливаем название
         Main.primaryStage = primaryStage;
         Main.primaryStage.setTitle("ПК приёмной комиссии");
 
+        //инициализируем корневой слой
         initRootLayout();
+        //запускаем менеджер модулей
         new ModulesManager(rootLayout).run();
     }
 
@@ -44,20 +45,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
-
-/* ССылкота
-
-https://stackoverflow.com/questions/44317837/create-search-textfield-field-to-search-in-a-javafx-tableview
-
-http://o7planning.org/ru/11087/javafx-choicebox-tutorial
-
-http://code.i-harness.com/ru/q/11c1c02
-http://www.java2s.com/Code/Java/JavaFX/AddTabtoTabPane.htm
-http://www.quizful.net/post/javafx-inception-001
-
-
-https://habrahabr.ru/post/104229/
-
- */

@@ -20,6 +20,7 @@ public class DataModuleController {
 
     public Tab init() {
         try {
+            //Загружаем все вкладки для "Данных"
             FXMLLoader studentsLoader = new FXMLLoader();
             studentsLoader.setLocation(Main.class.getResource("modules/data/template/students.fxml"));
 
@@ -40,8 +41,6 @@ public class DataModuleController {
             Tab room = roomLoader.load();
             Tab discipline = disciplineLoader.load();
             Tab exam = examLoader.load();
-
-
 
             dataWindow.getTabs().addAll(students, faculty, room, discipline, exam);
             tab.setContent(dataWindow);

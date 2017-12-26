@@ -16,7 +16,6 @@ import students_pk.modules.data.classes.Student;
 import java.io.IOException;
 
 public class StudentsModalWindow {
-
     private ObservableList<Faculty> faculty;
     public static Stage stg;
     private Student student;
@@ -27,18 +26,15 @@ public class StudentsModalWindow {
     }
 
     public boolean showAddWindow(Window modal) throws IOException{
+        //создаем новый стейдж и загружаем файл с шаблоном
         stg = new Stage();
         FXMLLoader modalLoader = new FXMLLoader();
         modalLoader.setLocation(Main.class.getResource("modules/data/template/studentsModal.fxml"));
-
         Pane root = modalLoader.load();
-
         ComboBox facultyList = (ComboBox) root.getChildren().get(3);
-
         facultyList.setItems(this.faculty);
 
         Scene scene = new Scene(root);
-
         StudentModalController controller = modalLoader.getController();
         controller.setStudentId(0);
 
@@ -56,12 +52,13 @@ public class StudentsModalWindow {
         modalLoader.setLocation(Main.class.getResource("modules/data/template/studentsModal.fxml"));
 
         Pane root = modalLoader.load();
-
+        //получаем необходимые поля
         TextField lastNameField = (TextField) root.getChildren().get(0);
         TextField firstNameField = (TextField) root.getChildren().get(1);
         TextField middleNameField = (TextField) root.getChildren().get(2);
         ComboBox facultyList = (ComboBox) root.getChildren().get(3);
 
+        //заполняем их значения
         lastNameField.setText(this.student.getLastName());
         firstNameField.setText(this.student.getFirstName());
         middleNameField.setText(this.student.getMiddleName());
