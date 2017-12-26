@@ -78,6 +78,13 @@ public class PassExamController {
     }
 
     @FXML
+    private void removeMark() {
+        StudentWithMark student = studentsWithMarkTable.getSelectionModel().getSelectedItem();
+        student.deleteMark();
+        reloadTable();
+    }
+
+    @FXML
     private void fullReload() {
         reloadExamFilter();
         reloadTable();
@@ -98,6 +105,7 @@ public class PassExamController {
         middleNameField.clear();
         facultyField.clear();
         firstNameField.clear();
+        markField.clear();
         saveButton.setDisable(true);
         cancelButton.setDisable(true);
     }
@@ -105,6 +113,7 @@ public class PassExamController {
     @FXML
     private void saveExamResult() {
         StudentWithMark student = studentsWithMarkTable.getSelectionModel().getSelectedItem();
+        String oldMark = student.getMark();
         String mark = markField.getText();
         Integer markInt;
         int errorType = 0;
@@ -120,7 +129,10 @@ public class PassExamController {
                 else {
                     student.setExamId(selectedExam);
                     student.setMark(markInt);
-                    student.saveMark();
+                    if (oldMark.equals("")) {
+                        student.saveMark();
+                    }
+                    else student.updateMark();
                     reloadTable();
                 }
             }
@@ -149,10 +161,13 @@ public class PassExamController {
     @FXML
     private void selectStudent() {
         StudentWithMark student = studentsWithMarkTable.getSelectionModel().getSelectedItem();
-        lastNameField.setText(student.getLastName());
-        firstNameField.setText(student.getFirstName());
-        middleNameField.setText(student.getMiddleName());
-        facultyField.setText(student.getFaculty());
+        if (student != null) {
+            lastNameField.setText(student.getLastName());
+            firstNameField.setText(student.getFirstName());
+            middleNameField.setText(student.getMiddleName());
+            facultyField.setText(student.getFaculty());
+            markField.setText(student.getMark());
+        }
     }
 
     public void initialize() {
@@ -204,10 +219,9 @@ public class PassExamController {
 
     private void reloadTable() {
         initStudentWithMarkData();
-
+        clearStudentCard();
         studentsWithMarkTable.getSelectionModel().clearSelection();
-        saveButton.setDisable(true);
-        cancelButton.setDisable(true);
+
         filteredStudentsWithMarkData = new FilteredList<>(studentsWithMarkData, p -> true);
         sortedStudentsWithMarkData = new SortedList<>(filteredStudentsWithMarkData);
         sortedStudentsWithMarkData.comparatorProperty().bind(studentsWithMarkTable.comparatorProperty());

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<Tab text="Отчет по экзаменам" fx:controller="students_pk.modules.reports.view.StudentsReportController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" onSelectionChanged="#fullReload">
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" fx:id="wrapper">
+            <children>
+                <ToolBar prefHeight="40.0" prefWidth="771.0">
+                    <items>
+                        <ComboBox prefWidth="150.0" promptText="Выберите экзамен" fx:id="examSelector" />
+                        <Button mnemonicParsing="false" text="Х" onMouseClicked="#clearSelectedExam" />
+                    </items>
+                </ToolBar>
+                <ToolBar layoutY="40.0" prefHeight="40.0" prefWidth="772.0">
+                    <items>
+                        <TextField promptText="Дата и время экзамена" editable="false" fx:id="dateField"/>
+                        <TextField promptText="Аудитория" editable="false" fx:id="roomField" />
+                    </items>
+                </ToolBar>
+                <BarChart layoutX="29.0" layoutY="86.0" prefHeight="458.0" prefWidth="711.0" title="Распределение оценок и студентов" fx:id="gist">
+                    <xAxis>
+                        <CategoryAxis label="Баллы за экзамен" side="BOTTOM" fx:id="balls" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Процент от общего количества на предмет" side="LEFT" fx:id="percent" />
+                    </yAxis>
+                </BarChart>
+            </children>
+        </AnchorPane>
+    </content>
+</Tab>

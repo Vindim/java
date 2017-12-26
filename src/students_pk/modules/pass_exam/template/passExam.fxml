@@ -23,11 +23,12 @@
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="413.0">
                            <children>
                                <ListView layoutX="14.0" layoutY="31.0" prefHeight="200.0" prefWidth="200.0" />
-                               <TextField fx:id="markField" layoutX="14.0" layoutY="252.0" prefHeight="32.0" prefWidth="201.0" promptText="Оценка" />
                                <TextField fx:id="lastNameField" editable="false" layoutX="26.0" layoutY="52.0" prefHeight="25.0" prefWidth="178.0" promptText="Фамилия" />
                                <TextField fx:id="firstNameField" editable="false" layoutX="26.0" layoutY="94.0" prefHeight="25.0" prefWidth="178.0" promptText="Имя" />
                                <TextField fx:id="middleNameField" editable="false" layoutX="26.0" layoutY="131.0" prefHeight="25.0" prefWidth="178.0" promptText="Отчество" />
                                <TextField fx:id="facultyField" editable="false" layoutX="27.0" layoutY="170.0" prefHeight="25.0" prefWidth="177.0" promptText="Факультет" />
+                               <TextField fx:id="markField" layoutX="14.0" layoutY="250.0" prefHeight="32.0" prefWidth="167.0" promptText="Оценка" />
+                               <Button layoutX="181.0" layoutY="250.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" text="X" onMouseClicked="#removeMark"/>
                                <Button fx:id="saveButton" layoutX="14.0" layoutY="313.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Сохранить" onMouseClicked="#saveExamResult"/>
                                <Button fx:id="cancelButton" layoutX="132.0" layoutY="313.0" mnemonicParsing="false" onMouseClicked="#clearStudentCard" prefHeight="25.0" prefWidth="81.0" text="Отмена" />
                            </children>

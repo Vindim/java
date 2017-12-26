@@ -73,13 +73,15 @@ public class DB {
                     String type = rs.getMetaData().getColumnTypeName(i + 1);
                     switch (type) {
                         case "INT":
+                        case "BIGINT":
                             row[i] = rs.getInt(i +1);
                             break;
+
                         case "VARCHAR":
                             row[i] = rs.getString(i + 1);
                             break;
                         case "DATETIME":
-                            row[i] = rs.getString(i + 1);//.substring(0, 16);
+                            row[i] = rs.getString(i + 1);
                             break;
                     }
                 }

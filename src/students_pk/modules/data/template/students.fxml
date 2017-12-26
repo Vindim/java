@@ -17,7 +17,7 @@
                         <Button fx:id="deleteButton" mnemonicParsing="false" text="Удалить" onMouseClicked="#deleteClicked" />
                         <ComboBox promptText="Факультет" prefWidth="150.0" fx:id="facultySelector" />
                         <Button mnemonicParsing="false" text="x" onMouseClicked="#clearSelectedFaculty" />
-                        <TextField fx:id="searchField"/>
+                        <TextField fx:id="searchField" promptText="Поиск" />
                         <Button mnemonicParsing="false" text="x" onMouseClicked="#clearSearch" />
                     </items>
                 </ToolBar>
