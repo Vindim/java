@@ -10,25 +10,12 @@ public class Log {
     }
 
     public void writeLog() {
-        File file = new File("../log.txt");
+        File file = new File("src/students_pk/log.txt");
         try {
             FileWriter writer = new FileWriter(file, true);
             String log = str + "\r\n";
             writer.write(log);
             writer.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void writeLogStream() {
-        OutputStream os = null;
-        try {
-            File file = new File("../log.txt");
-            os = new FileOutputStream(file);
-            os.write(str.getBytes(), 0, str.length());
-            os.close();
         }
         catch (IOException e) {
             e.printStackTrace();
